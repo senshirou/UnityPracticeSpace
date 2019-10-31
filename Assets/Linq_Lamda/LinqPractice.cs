@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
 
 public class LinqPractice : MonoBehaviour
 {
@@ -25,14 +26,16 @@ public class LinqPractice : MonoBehaviour
         bool AnyCount = scores.Any(Ascore => Ascore <= 20);　//20以下が含まれているか判定。
         Debug.Log(AnyCount);
 
-        var TakeWhileCount = scores.TakeWhile(Twhile => Twhile >= 20);　//20以上の値を表示。
-        foreach(var Twc in TakeWhileCount)
+        var TakeWhileCount = scores.Where(Twhile => Twhile >= 20); //20以上の値を表示。
+
+
+        foreach (var Twc in TakeWhileCount)
         {
-            
-            Debug.Log("20以上の値その" + count  + ":" + Twc);
+
+            Debug.Log("20以上の値その" + count + ":" + Twc);
             count++;
         }
-        
+
 
         var ScoreOrder = scores.OrderBy(v => v); //小さい順に並び替え
         foreach(var Order in ScoreOrder)
@@ -40,8 +43,18 @@ public class LinqPractice : MonoBehaviour
             Debug.Log(count +"番目："+Order);
             count++;
         }
-        
 
+        var ScoreRandom = scores.OrderBy(s => Guid.NewGuid()).ToArray(); //配列をシャッフル。SystemのUsingステートメントが必要 //参考URL https://webbibouroku.com/Blog/Article/array-shuffle
+        foreach (var SR in ScoreRandom)
+        {
+            //Debug.Log(SR);
+        }
+
+        //Guid 128ビットの整数値からなる、データを一意に識別するために用いられる識別子
+        //(s => Guid.NewGuid()).ToArray()はArrayは配列、NewGuid()は新しく整数値を生成する。上のコードだとスコアの配列値を新しく生成して、配列にする。
+
+        var ScoreRandom2 = scores.Shuffle().ToArray();
+        Debug.Log(string.Join(",", ScoreRandom2));
 
 
     }
@@ -52,3 +65,21 @@ public class LinqPractice : MonoBehaviour
         
     }
 }
+
+public static class IEnumerableExtension
+{
+    
+
+    public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> collection)
+    {
+        return collection.OrderBy(i => Guid.NewGuid());
+    }
+
+    //静的クラスは、入力パラメーターに対してのみ処理を行い、内部のインスタンス フィールドを取得したり設定したりする必要のない一連のメソッドを格納する、便利なコンテナーとして使用できます。
+    //IEnumebrale<T> はforeachとLINQで処理できるようになるクラスをつくることができるインターフェース 引用元：http://garicchi.hatenablog.jp/entry/2014/09/13/200000
+
+}
+
+
+
+
