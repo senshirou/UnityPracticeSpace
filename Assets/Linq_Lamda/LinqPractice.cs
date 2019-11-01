@@ -56,6 +56,9 @@ public class LinqPractice : MonoBehaviour
         var ScoreRandom2 = scores.Shuffle().ToArray();
         Debug.Log(string.Join(",", ScoreRandom2));
 
+        var test = scores.Where(score => score <= 50);
+        Debug.Log(string.Join(":", test));
+
 
     }
 
