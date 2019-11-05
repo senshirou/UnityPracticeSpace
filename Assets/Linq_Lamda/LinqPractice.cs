@@ -59,6 +59,9 @@ public class LinqPractice : MonoBehaviour
         var test = scores.Where(score => score <= 50);
         Debug.Log(string.Join(":", test));
 
+        
+        
+
 
     }
 
