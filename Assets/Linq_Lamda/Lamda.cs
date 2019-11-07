@@ -32,6 +32,9 @@ public class Lamda : MonoBehaviour
         //Func<int a, int c, intb> a,c　引数　int b 戻り値、2つ以上の実装方法は上の例だとmultiply = (a,c) => a * c * 100;
         //Action<int a, int b> 　int a 引数　int b 引数
 
+       
+        
+
         
         
         
