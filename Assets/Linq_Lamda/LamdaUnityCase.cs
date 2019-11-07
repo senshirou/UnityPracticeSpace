@@ -8,6 +8,7 @@ using System.Linq;
 public class LamdaUnityCase : MonoBehaviour
 {
     GameObject button;
+    GameObject cube;
     public List<string> lists; //listsを定義する。
 
     // Start is called before the first frame update
@@ -23,6 +24,10 @@ public class LamdaUnityCase : MonoBehaviour
             
         }
 
+        
+
+
+
         lists.Add("tas");　//listsに"tas"を加える。
         lists.Add("kas");  //listsに"kas"を加える。
         lists.Add("mas");　//listsに"mas"を加える。
@@ -30,8 +35,8 @@ public class LamdaUnityCase : MonoBehaviour
         int b = lists.Count;　//bはリストのカウント数。
 
 
-        lists.ForEach(a => Debug.Log(a));
-        Debug.Log("リストは" + b + "個");
+        lists.ForEach(a => Debug.Log(a));　//リストのデバッグログ
+        Debug.Log("リストは" + b + "個"); //カウントのデバッグログ
 
 
     }
