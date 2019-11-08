@@ -24,7 +24,7 @@ public class CubeScript : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         Score_control.ScorePoint(100);
-        Destroy(gameObject);
+        
 
         
     }

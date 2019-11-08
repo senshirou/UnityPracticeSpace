@@ -19,11 +19,8 @@ public class LamdaUnityCase : MonoBehaviour
             button = GameObject.Find("Button");
             string tmp = i.ToString();
             button.GetComponent<Button>().onClick.AddListener(() => { Hello(tmp); }); //()の引数指定は不可。
-
-
             
         }
-
         
 
 
