@@ -8,6 +8,7 @@ using System.Linq;
 public class ScoreControl : MonoBehaviour
 {
 
+
     
 
     [SerializeField] Text Hiscore; //ハイスコアのテキスト
@@ -42,7 +43,6 @@ public class ScoreControl : MonoBehaviour
         
         
 
-
     }
 
     // Update is called once per frame
@@ -50,6 +50,14 @@ public class ScoreControl : MonoBehaviour
     {
 
         
+        
+    }
+
+    private void OnDestroy()
+    {
+        PlayerPrefs.SetInt("BallGame", HiscoreP); //ゲーム終了時にBallGameの内容を保存
+        //PlayerPrefs.DeleteKey("BallGame");      //ゲーム終了時にBallGameの内容を削除
+        PlayerPrefs.Save();　                     //アプリ終了時のタイミングで保存
     }
 
     private void OnDestroy()
@@ -73,16 +81,17 @@ public class ScoreControl : MonoBehaviour
 
     public void ScorePoint(int point)
     {
-        Score_point += point;
-        Score.text = Score_point.ToString();
+        Score_point += point;   //Scoreにポイントを追加。
+        Score.text = Score_point.ToString();　//Scoreのポイントをテキスト表示。
 
-        if (Score_point >= Hiscore_point)
+        if (Score_point > HiscoreP) //スコアがハイスコアを超えたときの処理
         {
-            Hiscore_point += point;
-            Hiscore.text = Hiscore_point.ToString();
+            HiscoreP += point;  //ハイスコアにポイントを追加
+            Hiscore.text = HiscoreP.ToString();　//ハイスコアをテキスト表示
         }
         
     }
+
 
 
     public void HiscoreDelete()
@@ -95,9 +104,5 @@ public class ScoreControl : MonoBehaviour
         }
         Debug.Log(HiscoreP);
         PlayerPrefs.Save();                      //アプリ終了時のタイミングで保存
-
-    }
-
-    
 
 }

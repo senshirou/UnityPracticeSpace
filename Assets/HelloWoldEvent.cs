@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SphereScript : MonoBehaviour
+public class HelloWoldEvent : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -13,6 +13,11 @@ public class SphereScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Destroy(gameObject, 1f);
+        
+    }
+
+    public void Helloworld()
+    {
+        Debug.Log("Hello world");
     }
 }
