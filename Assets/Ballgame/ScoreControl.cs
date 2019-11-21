@@ -6,72 +6,57 @@ using System;
 using System.Linq;
 
 public class ScoreControl : MonoBehaviour
-{
-
-
-    
-
+{ 
+    //ポイント反映用テキスト
     [SerializeField] Text Hiscore; //ハイスコアのテキスト
     [SerializeField] Text Score;　 //スコアのテキスト
     [SerializeField] Text second_ScoreText; //2位
     
 
-    //[SerializeField] Button DeleteButton; //ハイスコアを消すボタン
-    public int HiscoreP;　//ハイスコアのポイント
-    public int SecondP;
-    
-    public int ForthP;
-    int Score_point; //スコアのポイント
-    public List<int> lists;
-    public List<int> lists2;
+    //スコアのポイント
+    public int HiscoreP;　//1位のポイント
+    public int SecondP;   //2位のポイント
+    int Score_point;    　//現在のポイント
+    public List<int> lists;　//リストを定義
 
-
-
-    int Hiscore_point;
     // Start is called before the first frame update
     void Start()
     {
-
+        //1位、2位のスコア呼び出しとテキストに表示
         HiscoreP = PlayerPrefs.GetInt("HighScore");　//HighScoreの情報を呼び出し
         SecondP = PlayerPrefs.GetInt("SecondScore"); //SecoundScoreの情報呼び出し
-        lists = new List<int> { HiscoreP, SecondP};
-       
-        
-        Hiscore.text = HiscoreP.ToString();     //ハイスコアの情報をテキスト化
-        second_ScoreText.text = SecondP.ToString();     //ハイスコアの情報をテキスト化
-                                                //DeleteButton.onClick.AddListener(() => { HiscoreDelete(); }); //ハイスコアを消す。
-
-
+        lists = new List<int> { HiscoreP, SecondP};　//listに1位と2位スコアの代入
+        Hiscore.text = HiscoreP.ToString();     　　 //1位のポイントをテキスト化
+        second_ScoreText.text = SecondP.ToString();  //2位のポイントをテキスト化
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-        
-        
-    }
-
-    
-
+    //アプリ終了時の操作
     private void OnDestroy()
     {
+        
+        //リストに現在のスコアを代入。
         lists.Add(Score_point);
         Debug.Log(string.Join(",", lists));
+
+        //listsの中身を降順にする。
         var ScoreResult = lists.OrderByDescending(s => s).ToArray();
+
+        //1位・2位のスコアをlistから取り出し、リストの[2]を消す。
         HiscoreP = ScoreResult[0];
         SecondP = ScoreResult[1];
         lists.RemoveAt(2);
-        PlayerPrefs.SetInt("HighScore", HiscoreP); //ゲーム終了時にBallGameの内容を保存
+
+        //PlayerPrefsで1位2位のスコアをセット
+        PlayerPrefs.SetInt("HighScore", HiscoreP);
         PlayerPrefs.SetInt("SecondScore", SecondP);
+
+        
         Debug.Log(string.Join(",", ScoreResult)); //ScoreResult確認用
         Debug.Log(string.Join(",", lists));       //lists確認用
-        PlayerPrefs.Save();
 
-        //HiscoreDelete();
-        //PlayerPrefs.DeleteKey("BallGame");      //ゲーム終了時にBallGameの内容を削除
-        //PlayerPrefs.Save();　                     //アプリ終了時のタイミングで保存
+        //PlaerPrefs.SetIntの保存
+        PlayerPrefs.Save();
 
     }
 
